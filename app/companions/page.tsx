@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Page = () => {
+const CompanionsLibrary = () => {
     return (
         <div>
-            Sign in
+            
         </div>
     );
 };
 
-export default Page;
+export default CompanionsLibrary;

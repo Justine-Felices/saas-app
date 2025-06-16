@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Page = () => {
+const CompanionSession = () => {
     return (
         <div>
-            Sign in
+
         </div>
     );
 };
 
-export default Page;
+export default CompanionSession;
