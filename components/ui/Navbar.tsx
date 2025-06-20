@@ -6,7 +6,7 @@ import NavItems from "@/components/ui/NavItems";
 function Navbar() {
     return (
         <nav className="navbar">
-            <Link href="/">
+            <Link href="/public">
                 <div className=" flex items-center gap-x-2.5 cursor-pointer">
                     <Image
                         src="/images/logo.svg"
