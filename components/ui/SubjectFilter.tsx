@@ -1,59 +1,49 @@
-"use client"
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+"use client";
+import React, {useEffect, useState} from "react";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select";
 import {subjects} from "@/constants";
-import {useEffect, useState} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import {formUrlQuery, removeKeysFromUrlQuery} from "@jsmastery/utils";
 
-function SubjectFilter() {
-
+const SubjectFilter = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const query = searchParams.get("subject") || "";
 
-    const [subject, setSubject] = useState(query);
+    const [subject, setSubject] = useState(query || "all");
 
     useEffect(() => {
-        let newURL = "";
+        let newUrl = "";
         if (subject === "all") {
-            newURL = removeKeysFromUrlQuery({
+            newUrl = removeKeysFromUrlQuery({
                 params: searchParams.toString(),
                 keysToRemove: ["subject"],
             });
-            router.push(newURL, {scroll: false});
         } else {
-            newURL = formUrlQuery({
+            newUrl = formUrlQuery({
                 params: searchParams.toString(),
                 key: "subject",
                 value: subject,
             });
-            router.push(newURL, {scroll: false});
         }
-    }, [subject, router, searchParams])
-
+        router.push(newUrl, {scroll: false});
+    }, [subject]);
 
     return (
-        <div className="">
-            <Select onValueChange={setSubject} value={subject}>
-                <SelectTrigger
-                    className="relative border border-black rounded-lg items-center flex gap-2 px-2 py-1 h-fit">
-                    <SelectValue placeholder="Select Subject"/>
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="all">All</SelectItem>
-                    {subjects.map((subject) => (
-                        <SelectItem
-                            key={subject}
-                            value={subject}
-                            className="capitalize"
-                        >
-                            {subject}
-                        </SelectItem>
-                    ))}
-                </SelectContent>
-            </Select>
-        </div>
+        <Select onValueChange={setSubject} value={subject}>
+            <SelectTrigger className="input capitalize">
+                <SelectValue placeholder="Subject"/>
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="all">All subjects</SelectItem>
+                {subjects.map((subject) => (
+                    <SelectItem key={subject} value={subject} className="capitalize">
+                        {subject}
+                    </SelectItem>
+                ))}
+            </SelectContent>
+        </Select>
     );
-}
+};
 
 export default SubjectFilter;

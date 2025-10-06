@@ -10,9 +10,21 @@ interface CompanionsListProps {
 }
 
 function CompanionsList({title, companions, classNames}: CompanionsListProps) {
+
+    const seenIds = new Set();
+
+    const uniqueCompanions = companions
+        ?.filter(({id}) => {
+            if (!seenIds.has(id)) {
+                seenIds.add(id);
+                return true; // Keep this companion
+            }
+            return false; // Filter out this companion
+        });
+
     return (
         <article className={cn("companion-list", classNames)}>
-            <h2 className="font-bold text-3xl">Recent Sessions</h2>
+            <h2 className="font-bold text-3xl">{title}</h2>
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -22,7 +34,7 @@ function CompanionsList({title, companions, classNames}: CompanionsListProps) {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {companions?.map(({id, subject, name, topic, duration}) => (
+                    {uniqueCompanions?.map(({id, subject, name, topic, duration}) => (
                         <TableRow key={id}>
                             <TableCell>
                                 <Link href={`/companions/${id}`}>
