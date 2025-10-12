@@ -4,11 +4,14 @@ import CompanionsList from "@/components/ui/CompanionsList";
 import CTA from "@/components/ui/CTA";
 import {getAllCompanions, getRecentSession} from "@/lib/actions/companions.actions";
 import {getSubjectColor} from "@/lib/utils";
+import {currentUser} from "@clerk/nextjs/server";
 
 
 const Page = async () => {
     const companions = await getAllCompanions({limit: 3})
     const recentSessionsCompanions = await getRecentSession(10);
+
+    const user = await currentUser();
 
     return (
         <main>
@@ -27,12 +30,12 @@ const Page = async () => {
             </section>
 
             <section className="home-section">
-                <CompanionsList
+                {user && <CompanionsList
                     title="Recently Completed Sessions"
                     companions={recentSessionsCompanions}
-                    classNames="w2/3 max-lg:w-full"
+                    classNames="w-2/3 max-lg:w-full"
 
-                />
+                />}
                 <CTA/>
             </section>
         </main>

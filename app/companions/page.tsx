@@ -12,8 +12,7 @@ const CompanionsLibrary = async ({searchParams}: SearchParams) => {
 
     const companions = await getAllCompanions({subject, topic});
 
-    console.log(companions);
-
+    // const sortedCompanions = [...companions].sort((a, b) => Number(b.bookmarked) - Number(a.bookmarked));
 
     return (
         <main>
