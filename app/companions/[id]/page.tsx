@@ -14,11 +14,13 @@ const CompanionSession = async ({params}: CompanionSessionPageProps) => {
     const companion = await getCompanion(id);
 
     const user = await currentUser();
+    console.log("herec", companion)
 
-    const {name, subject, title, topic, duration} = companion;
+    const {name, subject, topic, duration} = companion;
 
     if (!user) redirect("/sign-in");
     if (!name) redirect("/companions");
+
 
     return (
         <main>

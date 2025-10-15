@@ -2,15 +2,15 @@ import React from 'react'
 import CompanionCard from "@/components/ui/CompanionCard";
 import CompanionsList from "@/components/ui/CompanionsList";
 import CTA from "@/components/ui/CTA";
-import {getAllCompanions, getRecentSession} from "@/lib/actions/companions.actions";
+import {getDefaultCompanions, getRecentSession} from "@/lib/actions/companions.actions";
 import {getSubjectColor} from "@/lib/utils";
 import {currentUser} from "@clerk/nextjs/server";
 
 
 const Page = async () => {
-    const companions = await getAllCompanions({limit: 3})
+    const companions = await getDefaultCompanions()
     const recentSessionsCompanions = await getRecentSession(10);
-
+    console.log("hello", companions)
     const user = await currentUser();
 
     return (

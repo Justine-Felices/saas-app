@@ -39,20 +39,44 @@ export const getAllCompanions = async ({limit = 10, page = 1, subject, topic}: G
     return companions;
 }
 
+export const getDefaultCompanions = async () => {
+    const supabase = createSupabaseClient();
+    const {data, error} = await supabase
+        .from("default_companions")
+        .select()
+
+    console.log('Data:', data);
+    console.log('Error:', error);
+
+    if (error) throw new Error(error?.message || "Failed to get default companions");
+    return data;
+}
+
 export const getCompanion = async (id: string) => {
     const supabase = createSupabaseClient();
 
-    const {data, error} = await supabase
+    const {data: defaultCompapanionsData, error: defaultCompanionsError} = await supabase
+        .from("default_companions")
+        .select()
+        .eq("id", id);
+
+    if (defaultCompanionsError) {
+        throw new Error(defaultCompanionsError?.message || "Failed to get companion");
+    }
+    if (defaultCompapanionsData && defaultCompapanionsData.length > 0) {
+        return defaultCompapanionsData[0];
+    }
+
+    const {data: companionsData, error: companionsError} = await supabase
         .from("companions")
         .select()
         .eq("id", id);
 
-    if (error) {
-        console.error("Error fetching companion:", error);
-        return null; // Return null for error handling
+    if (companionsError) {
+        throw new Error(companionsError?.message || "Failed to get companion");
     }
 
-    return data[0] || null;
+    return companionsData[0];
 }
 
 export const addToSessionHistory = async (companionId: string) => {
