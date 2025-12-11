@@ -36,7 +36,7 @@ function CompanionComponent({
     useEffect(() => {
         if (lottieRef) {
             if (isSpeaking) {
-                lottieRef.current?.play
+                lottieRef.current?.play()
             } else {
                 lottieRef.current?.stop();
             }
@@ -45,7 +45,7 @@ function CompanionComponent({
     }, [isSpeaking, lottieRef]);
 
     useEffect(() => {
-        const onCallstart = () => setCallStatus(CallStatus.ACTIVE);
+        const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
 
         const onCallEnd = () => {
             setCallStatus(CallStatus.FINISHED);
@@ -64,7 +64,7 @@ function CompanionComponent({
 
         const onError = (error: Error) => console.log("Error", error)
 
-        vapi.on("call-start", onCallstart);
+        vapi.on("call-start", onCallStart);
         vapi.on("call-end", onCallEnd);
         vapi.on("message", onMessage);
         vapi.on("error", onError);
@@ -72,7 +72,7 @@ function CompanionComponent({
         vapi.on("speech-end", onSpeechEnd);
 
         return () => {
-            vapi.off("call-start", onCallstart);
+            vapi.off("call-start", onCallStart);
             vapi.off("call-end", onCallEnd);
             vapi.off("message", onMessage);
             vapi.off("error", onError);
@@ -142,7 +142,7 @@ function CompanionComponent({
                             {userName}
                         </p>
                     </div>
-                    <button className="btn-mic" onClick={toggleMicrophone}>
+                    <button className="btn-mic" onClick={toggleMicrophone} disabled={callStatus !== CallStatus.ACTIVE}>
                         <Image src={isMuted ? `/icons/mic-off.svg` : `/icons/mic-on.svg`}
                                alt="mic"
                                width={36}

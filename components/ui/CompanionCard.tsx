@@ -36,7 +36,6 @@ function CompanionCard({id, name, topic, subject, duration, color}: CompanionCar
                     />
                 </button>
             </div>
-
             <h2 className="text-2xl font-bold">{name}</h2>
             <p className="text-sm">{topic}</p>
             <div className="flex items-center gap-2">

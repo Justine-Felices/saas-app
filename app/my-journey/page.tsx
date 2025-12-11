@@ -5,6 +5,7 @@ import {getUserCompanions, getUserSession} from "@/lib/actions/companions.action
 import Image from "next/image";
 import CompanionsList from "@/components/ui/CompanionsList";
 
+
 const Profile = async () => {
     const user = await currentUser();
 

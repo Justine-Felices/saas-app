@@ -7,13 +7,13 @@ import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 function Navbar() {
     return (
         <nav className="navbar">
-            <Link href="/public">
+            <Link href="/">
                 <div className=" flex items-center gap-x-2.5 cursor-pointer">
                     <Image
-                        src="/images/logo.svg"
+                        src="/images/Kaulay Logo.PNG"
                         alt="logo"
-                        width={46}
-                        height={46}
+                        width={96}
+                        height={96}
                     >
                     </Image>
                 </div>

@@ -3,8 +3,13 @@ import CompanionCard from "@/components/ui/CompanionCard";
 import {getSubjectColor} from "@/lib/utils";
 import SearchInput from "@/components/ui/SearchInput";
 import SubjectFilter from "@/components/ui/SubjectFilter";
+import {currentUser} from "@clerk/nextjs/server";
+import {redirect} from "next/navigation";
 
 const CompanionsLibrary = async ({searchParams}: SearchParams) => {
+
+    const user = await currentUser();
+    if (!user) redirect('/sign-in');
     const filters = await searchParams;
 
     const subject = filters.subject ? filters.subject : "";
