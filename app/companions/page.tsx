@@ -14,8 +14,9 @@ const CompanionsLibrary = async ({searchParams}: SearchParams) => {
 
     const subject = filters.subject ? filters.subject : "";
     const topic = filters.topic ? filters.topic : "";
+    const userId = user.id;
 
-    const companions = await getAllCompanions({subject, topic});
+    const companions = await getAllCompanions({subject, topic, userId});
 
     // const sortedCompanions = [...companions].sort((a, b) => Number(b.bookmarked) - Number(a.bookmarked));
 

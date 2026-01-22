@@ -15,6 +15,11 @@ export const subjectsColors = {
     coding: "#FFC8E4",
     history: "#FFECC8",
     economics: "#C8FFDF",
+    therapeutic: "#FFC8E4",
+    Conversation: "#FFECC8",
+    Theraphy: "#C8FFDF",
+    English: "#BDE7FF",
+
 };
 
 export const voices = {
