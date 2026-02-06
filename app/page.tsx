@@ -17,6 +17,7 @@ const Page = async () => {
         <main>
             <h1 className="text-2xl">Popular Companions</h1>
             <section className="home-section">
+                <div className="flex justify-between gap-4 max-sm:flex-col">Initial Commit</div>
 
                 {companions.map((companion) => (
                     <CompanionCard
