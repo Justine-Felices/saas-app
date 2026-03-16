@@ -1,48 +1,52 @@
-import React from 'react'
+import React from "react";
 import CompanionCard from "@/components/ui/CompanionCard";
 import CompanionsList from "@/components/ui/CompanionsList";
 import CTA from "@/components/ui/CTA";
-import {getDefaultCompanions, getRecentSession} from "@/lib/actions/companions.actions";
-import {getSubjectColor} from "@/lib/utils";
-import {currentUser} from "@clerk/nextjs/server";
+import {
+  getDefaultCompanions,
+  getRecentSession,
+} from "@/lib/actions/companions.actions";
+import { getSubjectColor } from "@/lib/utils";
+import { currentUser } from "@clerk/nextjs/server";
 
+export const dynamic = "force-dynamic";
 
 const Page = async () => {
-    const companions = await getDefaultCompanions()
-    const recentSessionsCompanions = await getRecentSession(10);
-    console.log("hello", companions)
-    const user = await currentUser();
+  const companions = await getDefaultCompanions();
+  const recentSessionsCompanions = await getRecentSession(10);
+  console.log("hello", companions);
+  const user = await currentUser();
 
-    return (
-        <main>
-            <h1 className="text-2xl">Popular Companions</h1>
-            <section className="home-section">
-                <div className="flex justify-between gap-4 max-sm:flex-col">Initial Commit</div>
+  return (
+    <main>
+      <h1 className="text-2xl">Popular Companions</h1>
+      <section className="home-section">
+        <div className="flex justify-between gap-4 max-sm:flex-col">
+          Initial Commit
+        </div>
 
-                {companions.map((companion) => (
-                    <CompanionCard
-                        key={companion.id}
-                        {...companion}
-                        color={getSubjectColor(companion.subject)}
-                    />
-                ))}
+        {companions.map((companion) => (
+          <CompanionCard
+            key={companion.id}
+            {...companion}
+            color={getSubjectColor(companion.subject)}
+          />
+        ))}
+        <div>AGAiskosandahksahdsakdasa</div>
+      </section>
 
+      <section className="home-section">
+        {user && (
+          <CompanionsList
+            title="Recently Completed Sessions"
+            companions={recentSessionsCompanions}
+            classNames="w-2/3 max-lg:w-full"
+          />
+        )}
+        <CTA />
+      </section>
+    </main>
+  );
+};
 
-            </section>
-
-            <section className="home-section">
-                {user && <CompanionsList
-                    title="Recently Completed Sessions"
-                    companions={recentSessionsCompanions}
-                    classNames="w-2/3 max-lg:w-full"
-
-                />}
-                <CTA/>
-            </section>
-        </main>
-
-
-    )
-}
-
-export default Page
+export default Page;
